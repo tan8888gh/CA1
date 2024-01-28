@@ -50,6 +50,18 @@ public class TanveenCA1 {
                     }
                     System.out.println("Last Name: " + lastName);
                 }
+                
+                int numberOfClasses = 0;
+
+                if (lineNumber == 2) {
+                    if (data.charAt(0) > '1' && data.charAt(0) <= '8') {
+                        numberOfClasses = Character.getNumericValue(data.charAt(0));
+                    } else {
+                        throw new IllegalArgumentException("Number of classes is not valid");
+                    }
+                    System.out.println("Number of classes: " + numberOfClasses);
+                }
+                
                 lineNumber++;
                 if (lineNumber > 3) {
                     lineNumber = 1;
