@@ -27,12 +27,16 @@ public class TanveenCA1 {
             int lineNumber = 1;
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
+
+                //Splits the string into an array of strings to get two names
                 System.out.println("Currenly on Line number " + lineNumber + " Data: " + data);
                 String[] names = data.split(" ");
-                
+
                 if (lineNumber == 1) {
                     System.out.println("Student Name");
                     String firstName = names[0];
+
+                    //Converting the string to character Array and checks whether each character is a letter or not 
                     char[] firstNameArr = firstName.toCharArray();
                     for (int i = 0; i < firstNameArr.length; i++) {
                         if (!Character.isLetter(firstNameArr[i])) {
@@ -41,6 +45,7 @@ public class TanveenCA1 {
                     }
                     System.out.println("FirstName: " + firstName);
 
+                    //Converting the string to character Array and checks whether each character is a letter or not 
                     String lastName = names[1];
                     char[] lastNameArr = lastName.toCharArray();
                     for (int i = 0; i < lastNameArr.length; i++) {
@@ -50,18 +55,20 @@ public class TanveenCA1 {
                     }
                     System.out.println("Last Name: " + lastName);
                 }
-                
+
                 int numberOfClasses = 0;
 
                 if (lineNumber == 2) {
-                    if (data.charAt(0) > '1' && data.charAt(0) <= '8') {
-                        numberOfClasses = Character.getNumericValue(data.charAt(0));
-                    } else {
+                    //checks wh
+                    if(data.length()>1 || !(data.charAt(0) > '1' && data.charAt(0) <= '8')){
                         throw new IllegalArgumentException("Number of classes is not valid");
+                    } else {
+                        numberOfClasses = Character.getNumericValue(data.charAt(0));
                     }
+                    
                     System.out.println("Number of classes: " + numberOfClasses);
                 }
-                
+
                 lineNumber++;
                 if (lineNumber > 3) {
                     lineNumber = 1;
