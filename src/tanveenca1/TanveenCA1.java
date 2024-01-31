@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class TanveenCA1 {
 
     private static List<Student> studentsList;
-    
+    //GitHub Link: https://github.com/tan8888gh/CA1.git
     public static void main(String[] args) {
         studentsList = new ArrayList<>();
         try {
@@ -34,6 +34,7 @@ public class TanveenCA1 {
                 System.out.println("Currently on Line number " + lineNumber + " Data: " + data);
                 String[] names = data.split(" ");
 
+                //Checks if the line number is 1 and if it is 1 it saves the first and last names in the new student
                 if (lineNumber == 1) {
                     Student student = new Student();
 
@@ -63,7 +64,7 @@ public class TanveenCA1 {
                 }
 
                 int numberOfClasses;
-
+                //Checks if the line number is 2 and if it is 2 it gets the current student object and set number of classes in it
                 if (lineNumber == 2) {
                     if (data.charAt(0) >= '1' && data.charAt(0) <= '8') {
                         numberOfClasses = Character.getNumericValue(data.charAt(0));
@@ -74,6 +75,7 @@ public class TanveenCA1 {
                     studentsList.get(currentStudentIndex).setNumberOfClasses(numberOfClasses);
                 }
 
+                //Checks if the line number is 3 and if it is 3 it gets the current student object and set student id in it
                 if (lineNumber == 3) {
                     if (data.length() < 6) {
                         throw new IllegalArgumentException("Invalid data, Student id length less than 6 characters");
@@ -97,18 +99,21 @@ public class TanveenCA1 {
                 }
 
                 lineNumber++;
+                //this logic is used to reset the line number so our program creates a new student every time
+                //we process 3 lines
                 if (lineNumber > 3) {
                     currentStudentIndex++;
                     lineNumber = 1;
                 }
             }
             myReader.close();
-        } catch (IllegalArgumentException exc) {
+        } catch (IllegalArgumentException exc) { //this prints the exception to show useful message to the user
             System.out.println(exc.getMessage());
         } catch (Exception exc) {
             exc.printStackTrace();
         }
         
+        //File Writing Part
         try {
             File file = new File("C:\\Users\\tanve\\Desktop\\status.txt");
 
@@ -116,6 +121,7 @@ public class TanveenCA1 {
                 System.out.println("New file created");
             }
             FileWriter fileWriter = new FileWriter(file);
+            //Iterating through each student in the list and printing the output in required format
             for (Student student : studentsList) {
                 fileWriter.write(student.getStudentId() + "-" + student.getLastName() + "\n");
                 switch (student.getNumberOfClasses()) {
