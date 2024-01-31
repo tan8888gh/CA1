@@ -76,7 +76,7 @@ public class TanveenCA1 {
 
                 if (lineNumber == 3) {
                     if (data.length() < 6) {
-                        throw new IllegalArgumentException("Invalid data, Student id length less than 6");
+                        throw new IllegalArgumentException("Invalid data, Student id length less than 6 characters");
                     }
                     if (!Character.isDigit(data.charAt(0)) || !Character.isDigit(data.charAt(1))) {
                         throw new IllegalArgumentException("Invalid data Student id has first two characters other than numbers");
@@ -105,6 +105,37 @@ public class TanveenCA1 {
             myReader.close();
         } catch (IllegalArgumentException exc) {
             System.out.println(exc.getMessage());
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        
+        try {
+            File file = new File("C:\\Users\\tanve\\Desktop\\status.txt");
+
+            if (file.createNewFile()) {
+                System.out.println("New file created");
+            }
+            FileWriter fileWriter = new FileWriter(file);
+            for (Student student : studentsList) {
+                fileWriter.write(student.getStudentId() + "-" + student.getLastName() + "\n");
+                switch (student.getNumberOfClasses()) {
+                    case 1:
+                        fileWriter.append("Very Light" + "\n");
+                        break;
+                    case 2: 
+                        fileWriter.append("Light" + "\n");
+                        break;
+                    case 3: 
+                    case 4:
+                    case 5:
+                        fileWriter.append("Part Time" + "\n");
+                        break;
+                    default: 
+                        fileWriter.append("Full Time" + "\n");
+                        break;
+                }
+            }
+            fileWriter.close();
         } catch (Exception exc) {
             exc.printStackTrace();
         }
