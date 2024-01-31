@@ -60,13 +60,34 @@ public class TanveenCA1 {
 
                 if (lineNumber == 2) {
                     //checks wh
-                    if(data.length()>1 || !(data.charAt(0) > '1' && data.charAt(0) <= '8')){
+                    if (data.length() > 1 || !(data.charAt(0) > '1' && data.charAt(0) <= '8')) {
                         throw new IllegalArgumentException("Number of classes is not valid");
                     } else {
                         numberOfClasses = Character.getNumericValue(data.charAt(0));
                     }
-                    
+
                     System.out.println("Number of classes: " + numberOfClasses);
+                }
+
+                if (lineNumber == 3) {
+                    if (data.length() < 6) {
+                        throw new IllegalArgumentException("Invalid data, Student id length less than 6");
+                    }
+                    if (!Character.isDigit(data.charAt(0)) || !Character.isDigit(data.charAt(1))) {
+                        throw new IllegalArgumentException("Invalid data Student id has first two characters other than numbers");
+                    }
+                    if (!Character.isLetter(data.charAt(2))
+                            || !Character.isLetter(data.charAt(3))
+                            || !Character.isLetter(data.charAt(4))) {
+                        throw new IllegalArgumentException("Invalid data, Student id has 3,4 or 5 character being not a letter");
+                    }
+                    char[] dataCharArray = data.toCharArray();
+                    for (int i = 5; i < dataCharArray.length; i++) {
+                        if (!Character.isDigit(dataCharArray[i])) {
+                            throw new IllegalArgumentException("Invalid data, Student id has a character other than number after 5th character");
+                        }
+                    }
+                    System.out.println("Student Id" + data);
                 }
 
                 lineNumber++;
