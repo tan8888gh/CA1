@@ -7,6 +7,8 @@ package tanveenca1;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,10 +16,10 @@ import java.util.Scanner;
  */
 public class TanveenCA1 {
 
-    /**
-     * @param args the command line arguments
-     */
+    private static List<Student> studentsList;
+    
     public static void main(String[] args) {
+        studentsList = new ArrayList<>();
         try {
             File file = new File("C:\\Users\\tanve\\Desktop\\students.txt");
             Scanner myReader = new Scanner(file);
@@ -25,18 +27,18 @@ public class TanveenCA1 {
             /*Line Number will be used to check the current line in the students.txt file 
               and to check if the line contains the valid data according to assignment rules*/
             int lineNumber = 1;
+            int currentStudentIndex = 0;
             while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
 
-                //Splits the string into an array of strings to get two names
-                System.out.println("Currenly on Line number " + lineNumber + " Data: " + data);
+                String data = myReader.nextLine();
+                System.out.println("Currently on Line number " + lineNumber + " Data: " + data);
                 String[] names = data.split(" ");
 
                 if (lineNumber == 1) {
+                    Student student = new Student();
+
                     System.out.println("Student Name");
                     String firstName = names[0];
-
-                    //Converting the string to character Array and checks whether each character is a letter or not 
                     char[] firstNameArr = firstName.toCharArray();
                     for (int i = 0; i < firstNameArr.length; i++) {
                         if (!Character.isLetter(firstNameArr[i])) {
@@ -45,7 +47,6 @@ public class TanveenCA1 {
                     }
                     System.out.println("FirstName: " + firstName);
 
-                    //Converting the string to character Array and checks whether each character is a letter or not 
                     String lastName = names[1];
                     char[] lastNameArr = lastName.toCharArray();
                     for (int i = 0; i < lastNameArr.length; i++) {
@@ -54,19 +55,23 @@ public class TanveenCA1 {
                         }
                     }
                     System.out.println("Last Name: " + lastName);
+
+                    student.setFirstName(firstName);
+                    student.setLastName(lastName);
+
+                    studentsList.add(student);
                 }
 
-                int numberOfClasses = 0;
+                int numberOfClasses;
 
                 if (lineNumber == 2) {
-                    //checks wh
-                    if (data.length() > 1 || !(data.charAt(0) > '1' && data.charAt(0) <= '8')) {
-                        throw new IllegalArgumentException("Number of classes is not valid");
-                    } else {
+                    if (data.charAt(0) >= '1' && data.charAt(0) <= '8') {
                         numberOfClasses = Character.getNumericValue(data.charAt(0));
+                    } else {
+                        throw new IllegalArgumentException("Number of classes is not valid");
                     }
-
                     System.out.println("Number of classes: " + numberOfClasses);
+                    studentsList.get(currentStudentIndex).setNumberOfClasses(numberOfClasses);
                 }
 
                 if (lineNumber == 3) {
@@ -88,10 +93,12 @@ public class TanveenCA1 {
                         }
                     }
                     System.out.println("Student Id" + data);
+                    studentsList.get(currentStudentIndex).setStudentId(data);
                 }
 
                 lineNumber++;
                 if (lineNumber > 3) {
+                    currentStudentIndex++;
                     lineNumber = 1;
                 }
             }
